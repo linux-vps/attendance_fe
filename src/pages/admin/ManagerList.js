@@ -3,6 +3,7 @@ import DataTable from 'react-data-table-component';
 import { Modal } from 'bootstrap';
 import { getDepartments, getManagers, createManager, updateManager, deleteManager } from '../../services/api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ManagerList = () => {
   const [managers, setManagers] = useState([]);
@@ -21,6 +22,8 @@ const ManagerList = () => {
   const addModalRef = useRef(null);
   const editModalRef = useRef(null);
   const deleteModalRef = useRef(null);
+
+  const { login } = useAuth();
 
   useEffect(() => {
     // Initialize Bootstrap modals
@@ -115,6 +118,22 @@ const ManagerList = () => {
     }
   };
 
+  const handleAccess = async (row) => {
+    try {
+      const result = await login(row.email, 'Manager123!');
+      if (result) {
+        toast.success('Đăng nhập thành công');
+        // Điều hướng đến trang quản lý sau khi đăng nhập thành công
+        // Ví dụ: navigate('/manager-dashboard');
+      } else {
+        toast.error('Đăng nhập thất bại');
+      }
+    } catch (error) {
+      toast.error('Lỗi khi đăng nhập');
+      console.error('Error during login:', error);
+    }
+  };
+
   const columns = [
     {
       name: 'Họ và tên',
@@ -143,16 +162,14 @@ const ManagerList = () => {
           <button
             className="btn btn-sm btn-primary me-2"
             onClick={() => {
-              console.log('Row data:', row);
               setSelectedManager(row);
               const formData = {
                 email: row.email,
                 fullName: row.fullName,
                 phoneNumber: row.phoneNumber,
                 departmentId: row.department?.id || '',
-                birthDate: row.birthDate || ''
+                birthDate: row.birthDate || '',
               };
-              console.log('Initial form data:', formData);
               setFormData(formData);
               editModalRef.current.show();
             }}
@@ -160,13 +177,19 @@ const ManagerList = () => {
             <i className="bi bi-pencil"></i>
           </button>
           <button
-            className="btn btn-sm btn-danger"
+            className="btn btn-sm btn-danger me-2"
             onClick={() => {
               setSelectedManager(row);
               deleteModalRef.current.show();
             }}
           >
             <i className="bi bi-trash"></i>
+          </button>
+          <button
+            className="btn btn-sm btn-success"
+            onClick={() => handleAccess(row)}
+          >
+            <i className="bi bi-box-arrow-in-right"></i> Truy cập
           </button>
         </>
       ),
