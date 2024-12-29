@@ -1,0 +1,1113 @@
+{
+	"info": {
+		"_postman_id": "4e25156a-1f3e-47c2-8066-10c3ce983340",
+		"name": "DACN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34247664"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login nhân viên",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Kiểm tra nếu response trả về thành công\r",
+									"pm.test(\"Response status is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Giả sử token nằm trong response body dạng JSON với key là \"token\"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"authToken\", response.data.access_token); // Lưu token vào biến môi trường\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john12it@example.com\",\r\n    \"password\": \"John123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Kiểm tra nếu response trả về thành công\r",
+									"pm.test(\"Response status is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Giả sử token nằm trong response body dạng JSON với key là \"token\"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"authToken\", response.data.access_token); // Lưu token vào biến môi trường\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"Admin123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Kiểm tra nếu response trả về thành công\r",
+									"pm.test(\"Response status is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Giả sử token nằm trong response body dạng JSON với key là \"token\"\r",
+									"let response = pm.response.json();\r",
+									"pm.environment.set(\"authToken\", response.data.access_token); // Lưu token vào biến môi trường\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john.managerit@example.com\",\r\n    \"password\": \"John123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "department",
+					"item": [
+						{
+							"name": "1. Xem danh sách phòng ban",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/departments",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"departments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Xem chi tiết 1 phòng ban",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/departments/93d6d734-bdb4-49b0-9289-11e4987fae12",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"departments",
+										"93d6d734-bdb4-49b0-9289-11e4987fae12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Cập nhật 1 phòng ban",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"departmentName\": \"Updated departmentName\",\r\n    \"description\": \"Updated description\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/departments/93d6d734-bdb4-49b0-9289-11e4987fae12",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"departments",
+										"93d6d734-bdb4-49b0-9289-11e4987fae12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. xoá phòng ban",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/departments/93d6d734-bdb4-49b0-9289-11e4987fae12",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"departments",
+										"93d6d734-bdb4-49b0-9289-11e4987fae12"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "1. Tạo Admin - > login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"Admin User\",\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"Admin123!\",\r\n    \"phoneNumber\": \"+84999999999\",\r\n    \"birthDate\": \"1990-01-01\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Tạo department",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"departmentName\": \"IT\", \r\n    \"description\": \"Công nghệ thông tin\"      \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/departments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Tạo manager cho department",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"John Manager\",\r\n    \"email\": \"john.managerit@example.com\",\r\n    \"password\": \"John123!\",\r\n    \"phoneNumber\": \"+84987654321\",\r\n    \"birthDate\": \"1995-01-01\",\r\n    \"departmentId\": \"f1f26f5c-c081-4852-ac96-11ebfe1b7ae9\",\r\n    \"role\": \"manager\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "manager",
+			"item": [
+				{
+					"name": "employee",
+					"item": [
+						{
+							"name": "1. Tạo nhân viên",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"John Employee\",\r\n    \"email\": \"john12it@example.com\",\r\n    \"password\": \"John123!\",\r\n    \"phoneNumber\": \"+84987654321\",\r\n    \"birthDate\": \"1995-01-01\",\r\n    \"role\": \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Xem danh sách nhân viên",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Xem chi tiết 1 nhân viên",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees/856db498-c639-40ea-9696-48909cd5e21b",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees",
+										"856db498-c639-40ea-9696-48909cd5e21b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. Cập nhật 1 nhân viên",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Updated Name\",\r\n    \"phoneNumber\": \"+84987654322\",\r\n    \"birthDate\": \"1995-01-02\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees/f9e92a48-a338-4fe0-af84-bbd1e9cebd9a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees",
+										"f9e92a48-a338-4fe0-af84-bbd1e9cebd9a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. Xoá 1 nhân viên",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/employees/f9e92a48-a338-4fe0-af84-bbd1e9cebd9a",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"employees",
+										"f9e92a48-a338-4fe0-af84-bbd1e9cebd9a"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "shift",
+					"item": [
+						{
+							"name": "1. Tạo ca làm việc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"shiftName\": \"Ca sáng\",\r\n    \"startTime\": \"08:00\",\r\n    \"endTime\": \"12:00\",\r\n    \"description\": \"Ca làm việc buổi sáng\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shifts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shifts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Lấy danh sách ca của phòng",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shifts",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shifts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Lấy chi tiết 1 ca",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shifts/7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shifts",
+										"7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. sửa thông tin 1 ca",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"shiftName\": \"Ca sáng\",\r\n    \"startTime\": \"08:00\",\r\n    \"endTime\": \"12:00\",\r\n    \"description\": \"Ca làm việc buổi sáng\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shifts/7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shifts",
+										"7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "5. xoá ca làm việc",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/shifts/7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"shifts",
+										"7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Timekeeping",
+			"item": [
+				{
+					"name": "QR Code",
+					"item": [
+						{
+							"name": "test checkin qr code",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{authToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"departmentId\": \"f1f26f5c-c081-4852-ac96-11ebfe1b7ae9\",\r\n    \"type\": \"checkout\",\r\n    \"timekeepingId\": \"7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/qrcode/generate",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"qrcode",
+										"generate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "1. Check in",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employeeId\": \"6370c022-7ee6-4267-a49c-7cbfa7f0f4b2\",\r\n    \"checkInTime\": \"09:00\",\r\n    \"shiftId\": \"7e684a72-d9e6-4e77-8cbf-b06f5cdd78d3\",\r\n    \"note\": \"Chấm công với môi trường\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/timekeeping/check-in",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"timekeeping",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. check out",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{authToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"checkOutTime\": \"17:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/timekeeping/check-out/56d5ba02-0757-4fa3-a927-9a8dc2984b6f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"timekeeping",
+								"check-out",
+								"56d5ba02-0757-4fa3-a927-9a8dc2984b6f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
